@@ -1,10 +1,10 @@
-package mk.finki.ukim.emt.lab.service.impl;
+package mk.finki.ukim.emt.lab.service.domain.impl;
 
-import mk.finki.ukim.emt.lab.model.Accommodation;
+import mk.finki.ukim.emt.lab.model.domain.Accommodation;
 import mk.finki.ukim.emt.lab.model.dto.AccommodationDto;
 import mk.finki.ukim.emt.lab.repository.AccommodationRepository;
-import mk.finki.ukim.emt.lab.service.AccommodationService;
-import mk.finki.ukim.emt.lab.service.HostService;
+import mk.finki.ukim.emt.lab.service.domain.AccommodationService;
+import mk.finki.ukim.emt.lab.service.domain.HostService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
-    public Optional<Accommodation> update(Long id, AccommodationDto accommodation) {
+    public Optional<Accommodation> update(Long id, Accommodation accommodation) {
         return accommodationRepository.findById(id)
                 .map(existingProduct -> {
                     if (accommodation.getName() != null) {
@@ -43,8 +43,8 @@ public class AccommodationServiceImpl implements AccommodationService {
                     if (accommodation.getNumRooms() != null) {
                         existingProduct.setNumRooms(accommodation.getNumRooms());
                     }
-                    if (accommodation.getHostId() != null && hostService.findById(accommodation.getHostId()).isPresent()) {
-                        existingProduct.setHost(hostService.findById(accommodation.getHostId()).get());
+                    if (accommodation.getHost() != null && hostService.findById(accommodation.getHost().getId()).isPresent()) {
+                        existingProduct.setHost(hostService.findById(accommodation.getHost().getId()).get());
                     }
                     return accommodationRepository.save(existingProduct);
                 });
@@ -52,12 +52,12 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
-    public Optional<Accommodation> save(AccommodationDto accommodation) {
-        if (accommodation.getHostId() != null &&
-                hostService.findById(accommodation.getHostId()).isPresent()) {
+    public Optional<Accommodation> save(Accommodation accommodation) {
+        if (accommodation.getHost() != null &&
+                hostService.findById(accommodation.getHost().getId()).isPresent()) {
             return Optional.of(
                     accommodationRepository.save(new Accommodation(accommodation.getName(), accommodation.getCategory(),
-                            hostService.findById(accommodation.getHostId()).get(), accommodation.getNumRooms())));
+                            hostService.findById(accommodation.getHost().getId()).get(), accommodation.getNumRooms())));
         }
         return Optional.empty();
 

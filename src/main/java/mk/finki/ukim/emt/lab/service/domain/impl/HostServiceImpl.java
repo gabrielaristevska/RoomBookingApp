@@ -1,10 +1,10 @@
-package mk.finki.ukim.emt.lab.service.impl;
+package mk.finki.ukim.emt.lab.service.domain.impl;
 
-import mk.finki.ukim.emt.lab.model.Host;
+import mk.finki.ukim.emt.lab.model.domain.Host;
 import mk.finki.ukim.emt.lab.model.dto.HostDto;
 import mk.finki.ukim.emt.lab.repository.HostRepository;
-import mk.finki.ukim.emt.lab.service.CountryService;
-import mk.finki.ukim.emt.lab.service.HostService;
+import mk.finki.ukim.emt.lab.service.domain.CountryService;
+import mk.finki.ukim.emt.lab.service.domain.HostService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class HostServiceImpl implements HostService {
     }
 
     @Override
-    public Optional<Host> update(Long id, HostDto host) {
+    public Optional<Host> update(Long id, Host host) {
         return hostRepository.findById(id)
                 .map(existingProduct -> {
                     if (host.getName() != null) {
@@ -40,20 +40,20 @@ public class HostServiceImpl implements HostService {
                     if (host.getSurname() != null) {
                         existingProduct.setSurname(host.getSurname());
                     }
-                    if (host.getCountryId() != null && countryService.findById(host.getCountryId()).isPresent()) {
-                        existingProduct.setCountry(countryService.findById(host.getCountryId()).get());
+                    if (host.getCountry() != null && countryService.findById(host.getCountry().getId()).isPresent()) {
+                        existingProduct.setCountry(countryService.findById(host.getCountry().getId()).get());
                     }
                     return hostRepository.save(existingProduct);
                 });
     }
 
     @Override
-    public Optional<Host> save(HostDto host) {
-        if (host.getCountryId() != null &&
-                countryService.findById(host.getCountryId()).isPresent()) {
+    public Optional<Host> save(Host host) {
+        if (host.getCountry() != null &&
+                countryService.findById(host.getCountry().getId()).isPresent()) {
             return Optional.of(
                     hostRepository.save(new Host(host.getName(), host.getSurname(),
-                            countryService.findById(host.getCountryId()).get())));
+                            countryService.findById(host.getCountry().getId()).get())));
         }
         return Optional.empty();
     }

@@ -1,6 +1,6 @@
 package mk.finki.ukim.emt.lab.repository;
 
-import mk.finki.ukim.emt.lab.model.Accommodation;
+import mk.finki.ukim.emt.lab.model.domain.Accommodation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package mk.finki.ukim.emt.lab.model.dto;
 
-import mk.finki.ukim.emt.lab.model.Category;
+import mk.finki.ukim.emt.lab.model.enumerations.Category;
 
 public class AccommodationDto {
     private String name;

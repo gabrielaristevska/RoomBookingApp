@@ -1,4 +1,4 @@
-package mk.finki.ukim.emt.lab.model;
+package mk.finki.ukim.emt.lab.model.domain;
 
 import jakarta.persistence.*;
 

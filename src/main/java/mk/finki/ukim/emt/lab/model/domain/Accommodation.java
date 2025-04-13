@@ -1,9 +1,7 @@
-package mk.finki.ukim.emt.lab.model;
+package mk.finki.ukim.emt.lab.model.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import mk.finki.ukim.emt.lab.model.enumerations.Category;
 
 @Entity
 public class Accommodation {
@@ -18,6 +16,10 @@ public class Accommodation {
     private Integer numRooms;
 
     public Accommodation() {
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Accommodation(String name, Category category, Host host, Integer numRooms) {

@@ -1,9 +1,9 @@
-package mk.finki.ukim.emt.lab.service.impl;
+package mk.finki.ukim.emt.lab.service.domain.impl;
 
-import mk.finki.ukim.emt.lab.model.Country;
+import mk.finki.ukim.emt.lab.model.domain.Country;
 import mk.finki.ukim.emt.lab.model.dto.CountryDto;
 import mk.finki.ukim.emt.lab.repository.CountryRepository;
-import mk.finki.ukim.emt.lab.service.CountryService;
+import mk.finki.ukim.emt.lab.service.domain.CountryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public Optional<Country> update(Long id, CountryDto country) {
+    public Optional<Country> update(Long id, Country country) {
         return countryRepository.findById(id)
                 .map(existingProduct -> {
                     if (country.getName() != null) {
@@ -42,7 +42,7 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public Optional<Country> save(CountryDto country) {
+    public Optional<Country> save(Country country) {
         return Optional.of(
                 countryRepository.save(new Country(country.getName(), country.getContinent())));
     }
