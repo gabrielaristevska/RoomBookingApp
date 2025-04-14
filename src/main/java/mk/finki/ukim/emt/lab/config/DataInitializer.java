@@ -1,10 +1,13 @@
 package mk.finki.ukim.emt.lab.config;
 
 import jakarta.annotation.PostConstruct;
+import mk.finki.ukim.emt.lab.model.domain.Accommodation;
 import mk.finki.ukim.emt.lab.model.domain.Country;
 import mk.finki.ukim.emt.lab.model.domain.Host;
 import mk.finki.ukim.emt.lab.model.domain.User;
+import mk.finki.ukim.emt.lab.model.enumerations.Category;
 import mk.finki.ukim.emt.lab.model.enumerations.Role;
+import mk.finki.ukim.emt.lab.repository.AccommodationRepository;
 import mk.finki.ukim.emt.lab.repository.CountryRepository;
 import mk.finki.ukim.emt.lab.repository.HostRepository;
 import mk.finki.ukim.emt.lab.repository.UserRepository;
@@ -15,13 +18,15 @@ import org.springframework.stereotype.Component;
 public class DataInitializer {
     private final CountryRepository countryRepository;
     private final HostRepository hostRepository;
+    private final AccommodationRepository accommodationRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
 
-    public DataInitializer(CountryRepository countryRepository, HostRepository hostRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public DataInitializer(CountryRepository countryRepository, HostRepository hostRepository, AccommodationRepository accommodationRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.countryRepository = countryRepository;
         this.hostRepository = hostRepository;
+        this.accommodationRepository = accommodationRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -34,10 +39,11 @@ public class DataInitializer {
         countryRepository.save(country1);
         countryRepository.save(country2);
         countryRepository.save(country3);
-        hostRepository.save(new Host("Petre","Petrov",country1));
+        Host host=new Host("Petre","Petrov",country1);
+        hostRepository.save(host);
         hostRepository.save(new Host("Lucio","Raphael",country2));
         hostRepository.save(new Host("Cho","Tanaka",country3));
-
+        accommodationRepository.save(new Accommodation("Hotel Karposh", Category.HOTEL,host,50));
         userRepository.save(new User(
                 "host",
                 passwordEncoder.encode("host"),

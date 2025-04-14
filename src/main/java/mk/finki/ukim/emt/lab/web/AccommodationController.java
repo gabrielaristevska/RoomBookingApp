@@ -60,7 +60,7 @@ public class AccommodationController {
 
     @Operation(summary = "Rent an accommodation", description = "Rents an accommodation by its ID.")
     @PutMapping("/rent/{id}")
-    public ResponseEntity<DisplayAccommodationDto> rent(@PathVariable Long id){
+    public ResponseEntity<DisplayAccommodationDto> rent(@PathVariable Long id) {
         return accommodationService.rentById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 }
