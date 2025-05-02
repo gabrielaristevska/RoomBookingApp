@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import mk.finki.ukim.emt.lab.dto.CreateHostDto;
 import mk.finki.ukim.emt.lab.dto.DisplayHostDto;
+import mk.finki.ukim.emt.lab.model.projections.HostProjection;
+import mk.finki.ukim.emt.lab.model.views.HostsByCountryView;
 import mk.finki.ukim.emt.lab.service.application.HostApplicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/hosts")
 @Tag(name = "Host API", description = "Endpoints for managing hosts")
-public class HostController{
+public class HostController {
     private final HostApplicationService hostApplicationService;
 
     public HostController(HostApplicationService hostApplicationService) {
@@ -25,6 +27,18 @@ public class HostController{
     @GetMapping
     public List<DisplayHostDto> findAll() {
         return hostApplicationService.findAll();
+    }
+
+    @Operation(summary = "Get hosts by country", description = "Retrieves a list of countries and number of hosts.")
+    @GetMapping("/by-country")
+    public List<HostsByCountryView> findHostsByCountry() {
+        return hostApplicationService.findHostsByCountry();
+    }
+
+    @Operation(summary = "Get names and surnames of hosts", description = "Retrieves a list of hosts with their names and surnames.")
+    @GetMapping("/names")
+    public List<HostProjection> getNamesAndSurnamesForHosts() {
+        return hostApplicationService.getNamesAndSurnames();
     }
 
     @Operation(summary = "Get host by ID", description = "Finds an host by its ID.")

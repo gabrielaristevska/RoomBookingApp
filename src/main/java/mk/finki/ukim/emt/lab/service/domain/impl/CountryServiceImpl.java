@@ -1,7 +1,6 @@
 package mk.finki.ukim.emt.lab.service.domain.impl;
 
 import mk.finki.ukim.emt.lab.model.domain.Country;
-import mk.finki.ukim.emt.lab.model.dto.CountryDto;
 import mk.finki.ukim.emt.lab.repository.CountryRepository;
 import mk.finki.ukim.emt.lab.service.domain.CountryService;
 import org.springframework.stereotype.Service;

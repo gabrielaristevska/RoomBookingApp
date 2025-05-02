@@ -2,6 +2,9 @@ package mk.finki.ukim.emt.lab.service.application;
 
 import mk.finki.ukim.emt.lab.dto.CreateHostDto;
 import mk.finki.ukim.emt.lab.dto.DisplayHostDto;
+import mk.finki.ukim.emt.lab.model.projections.HostProjection;
+import mk.finki.ukim.emt.lab.model.views.AccommodationsByHostView;
+import mk.finki.ukim.emt.lab.model.views.HostsByCountryView;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,4 +20,7 @@ public interface HostApplicationService {
 
     void deleteById(Long id);
 
+    List<HostsByCountryView> findHostsByCountry();
+
+    List<HostProjection> getNamesAndSurnames();
 }

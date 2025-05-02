@@ -31,7 +31,7 @@ public class DataInitializer {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void init(){
         Country country1=new Country("Macedonia","Europe");
         Country country2=new Country("Italy","Europe");

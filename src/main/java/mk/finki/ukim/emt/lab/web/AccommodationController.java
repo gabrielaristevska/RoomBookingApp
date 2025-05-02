@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import mk.finki.ukim.emt.lab.dto.CreateAccommodationDto;
 import mk.finki.ukim.emt.lab.dto.DisplayAccommodationDto;
+import mk.finki.ukim.emt.lab.model.views.AccommodationsByHostView;
 import mk.finki.ukim.emt.lab.service.application.AccommodationApplicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,12 @@ public class AccommodationController {
     @GetMapping
     public List<DisplayAccommodationDto> findAll() {
         return accommodationService.findAll();
+    }
+
+    @Operation(summary = "Get accommodations by host", description = "Retrieves a list of hosts and number of accommodations.")
+    @GetMapping("/by-host")
+    public List<AccommodationsByHostView> findAccommodationsByHost() {
+        return accommodationService.findAccommodationsByHost();
     }
 
     @Operation(summary = "Get accommodation by ID", description = "Finds an accommodation by its ID.")

@@ -1,8 +1,9 @@
 package mk.finki.ukim.emt.lab.service.domain.impl;
 
 import mk.finki.ukim.emt.lab.model.domain.Accommodation;
-import mk.finki.ukim.emt.lab.model.dto.AccommodationDto;
+import mk.finki.ukim.emt.lab.model.views.AccommodationsByHostView;
 import mk.finki.ukim.emt.lab.repository.AccommodationRepository;
+import mk.finki.ukim.emt.lab.repository.AccommodationsByHostViewRepository;
 import mk.finki.ukim.emt.lab.service.domain.AccommodationService;
 import mk.finki.ukim.emt.lab.service.domain.HostService;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,12 @@ import java.util.Optional;
 public class AccommodationServiceImpl implements AccommodationService {
     private final AccommodationRepository accommodationRepository;
     private final HostService hostService;
+    private final AccommodationsByHostViewRepository accommodationsByHostViewRepository;
 
-    public AccommodationServiceImpl(AccommodationRepository accommodationRepository, HostService hostService) {
+    public AccommodationServiceImpl(AccommodationRepository accommodationRepository, HostService hostService, AccommodationsByHostViewRepository accommodationsByHostViewRepository) {
         this.accommodationRepository = accommodationRepository;
         this.hostService = hostService;
+        this.accommodationsByHostViewRepository = accommodationsByHostViewRepository;
     }
 
     @Override
@@ -70,8 +73,19 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public Optional<Accommodation> rentById(Long id) {
-        Accommodation accommodation=findById(id).orElseThrow();
-        accommodation.setNumRooms(accommodation.getNumRooms()-1);
+        Accommodation accommodation = findById(id).orElseThrow();
+        accommodation.setNumRooms(accommodation.getNumRooms() - 1);
         return Optional.of(accommodationRepository.save(accommodation));
     }
+
+    @Override
+    public void refreshMaterializedView() {
+        accommodationsByHostViewRepository.refreshMaterializedView();
+    }
+
+    @Override
+    public List<AccommodationsByHostView> findAccommodationsByHost() {
+        return accommodationsByHostViewRepository.findAll();
+    }
+
 }

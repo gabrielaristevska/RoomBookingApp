@@ -3,6 +3,8 @@ package mk.finki.ukim.emt.lab.service.application.impl;
 import mk.finki.ukim.emt.lab.dto.CreateHostDto;
 import mk.finki.ukim.emt.lab.dto.DisplayHostDto;
 import mk.finki.ukim.emt.lab.model.domain.Country;
+import mk.finki.ukim.emt.lab.model.projections.HostProjection;
+import mk.finki.ukim.emt.lab.model.views.HostsByCountryView;
 import mk.finki.ukim.emt.lab.service.application.HostApplicationService;
 import mk.finki.ukim.emt.lab.service.domain.CountryService;
 import mk.finki.ukim.emt.lab.service.domain.HostService;
@@ -52,5 +54,15 @@ public class HostApplicationServiceImpl implements HostApplicationService {
     @Override
     public void deleteById(Long id) {
         hostService.deleteById(id);
+    }
+
+    @Override
+    public List<HostsByCountryView> findHostsByCountry() {
+        return hostService.findHostsByCountry();
+    }
+
+    @Override
+    public List<HostProjection> getNamesAndSurnames() {
+        return hostService.getNamesAndSurnames();
     }
 }

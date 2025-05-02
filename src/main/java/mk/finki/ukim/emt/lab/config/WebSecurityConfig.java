@@ -46,6 +46,7 @@ public class WebSecurityConfig {
                         "/api/accommodations",
                         "/api/hosts",
                         "/api/countries",
+                        "/api/reservations-list",
                         "api/user/login",
                         "api/user/register"
                 ).permitAll().anyRequest().hasRole("HOST"))
