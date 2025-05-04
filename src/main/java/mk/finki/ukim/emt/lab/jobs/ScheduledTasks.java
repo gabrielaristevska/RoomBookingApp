@@ -12,7 +12,7 @@ public class ScheduledTasks {
         this.accommodationService = accommodationService;
     }
 
-    @Scheduled(cron = "00 13 * * * *", zone = "Europe/Skopje")
+    @Scheduled(cron = "0 0 0 * * *", zone = "Europe/Skopje")
     public void refreshMaterializedView(){
         accommodationService.refreshMaterializedView();
     }

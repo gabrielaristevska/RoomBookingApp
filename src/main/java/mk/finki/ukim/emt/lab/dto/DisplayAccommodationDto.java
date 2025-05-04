@@ -23,8 +23,4 @@ public record DisplayAccommodationDto(Long id, String name, Category category, L
     public static List<DisplayAccommodationDto> from(List<Accommodation> accommodations) {
         return accommodations.stream().map(DisplayAccommodationDto::from).collect(Collectors.toList());
     }
-
-    public Accommodation toAccommodation(Host host) {
-        return new Accommodation(name, category, host,numRooms);
-    }
 }

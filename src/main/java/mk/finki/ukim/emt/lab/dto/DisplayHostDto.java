@@ -21,8 +21,4 @@ public record DisplayHostDto(Long id, String name, String surname, Long countryI
         return hosts.stream().map(DisplayHostDto::from).collect(Collectors.toList());
     }
 
-    public Host toHost(Country country) {
-        return new Host(name, surname, country);
-    }
-
 }
